@@ -1,223 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SUNSHINE ☀️ — Your Personal Knowledge World</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Navigation -->
+    <!-- ================= NAVIGATION ================= -->
+
     <nav class="navbar">
-        <div class="logo">☀️ SUNSHINE</div>
+
+        <div class="logo">
+            ☀️ SUNSHINE
+        </div>
 
         <div class="nav-links">
             <a href="#explore">Explore</a>
             <a href="#ask">Ask Sunshine</a>
             <a href="#games">Games</a>
         </div>
+
     </nav>
 
-    <!-- Hero -->
-    <header class="hero">
-        <div class="hero-content">
-            <div class="sun-icon">☀️</div>
 
-            <h1>Your Personal Knowledge World</h1>
+    <!-- ================= HERO ================= -->
+
+    <header class="hero">
+
+        <div class="hero-content">
+
+            <div class="sun-icon">
+                ☀️
+            </div>
+
+            <p class="eyebrow">
+                WELCOME TO SUNSHINE
+            </p>
+
+            <h1>
+                Your Personal<br>
+                Knowledge World
+            </h1>
 
             <p class="tagline">
                 Learn. Explore. Discover.
             </p>
 
             <p class="sub-tagline">
-                One place for history, investing, books, motorcycles,
-                travel, art, music, games and everything curious.
+                History, investing, motorcycles, travel, books,
+                art, music, games and everything you're curious about.
             </p>
 
-            <a class="hero-button" href="#ask">
+            <a href="#ask" class="hero-button">
                 💬 Ask Sunshine
             </a>
+
         </div>
+
     </header>
 
-    <!-- Explore -->
+
+    <!-- ================= EXPLORE ================= -->
+
     <section class="explore-section" id="explore">
 
         <div class="section-heading">
-            <p class="eyebrow">EXPLORE</p>
-            <h2>Choose something you're curious about.</h2>
-            <p>
-                Sunshine can help you learn across different worlds of knowledge.
+
+            <p class="eyebrow">
+                EXPLORE
             </p>
+
+            <h2>
+                What are you curious about?
+            </h2>
+
+            <p>
+                Pick a world to explore, or simply ask Sunshine anything.
+            </p>
+
         </div>
+
 
         <div class="topic-grid">
 
-            <div class="topic-card">
-                <div class="topic-icon">🏰</div>
-                <h3>Rajputana</h3>
+
+            <!-- RAJPUTANA -->
+
+            <button
+                class="topic-card"
+                data-topic="rajputana"
+                data-question="Teach me about Rajputana history. Give me fascinating stories, rulers, kingdoms, battles, forts, culture and legends. Clearly separate historical facts from legends and oral traditions."
+            >
+
+                <div class="topic-icon">
+                    🏰
+                </div>
+
+                <h3>
+                    Rajputana
+                </h3>
+
                 <p>
-                    Kings, battles, forts, legends, traditions and fascinating
-                    stories from Rajasthan and Indian history.
+                    Rulers, kingdoms, battles, forts, legends,
+                    culture and fascinating historical tales.
                 </p>
-                <span>Explore history →</span>
+
+                <span>
+                    Explore history →
+                </span>
+
+            </button>
+
+
+            <!-- INVESTING -->
+
+            <button
+                class="topic-card"
+                data-topic="investing"
+                data-question="Teach me investing from absolute beginner level. Start with the basics and gradually explain stocks, mutual funds, index funds, compounding, risk, financial statements and long-term investing."
+            >
+
+                <div class="topic-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Investing
+                </h3>
+
+                <p>
+                    Learn investing, stocks, valuation, compounding,
+                    financial statements and financial concepts.
+                </p>
+
+                <span>
+                    Learn finance →
+                </span>
+
+            </button>
+
+
+            <!-- INDIA BY BIKE -->
+
+            <button
+                class="topic-card"
+                data-topic="bikes"
+                data-question="Teach me about motorcycles and travelling India by bike. Explain motorcycle basics, types of bikes, specifications, riding knowledge, touring and interesting Indian motorcycle routes."
+            >
+
+                <div class="topic-icon">
+                    🏍️
+                </div>
+
+                <h3>
+                    India by Bike
+                </h3>
+
+                <p>
+                    Motorcycles, riding knowledge, touring,
+                    routes and discovering India on two wheels.
+                </p>
+
+                <span>
+                    Start riding →
+                </span>
+
+            </button>
+
+
+            <!-- BOOKS -->
+
+            <button
+                class="topic-card"
+                data-topic="books"
+                data-question="Help me explore books and novels. Recommend interesting books, explain plots, characters, themes, symbolism and lessons, and help me discover what I might enjoy reading."
+            >
+
+                <div class="topic-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Books & Novels
+                </h3>
+
+                <p>
+                    Discover novels, characters, stories, themes,
+                    ideas and memorable books.
+                </p>
+
+                <span>
+                    Enter the library →
+                </span>
+
+            </button>
+
+
+            <!-- ART & MUSIC -->
+
+            <button
+                class="topic-card"
+                data-topic="art"
+                data-question="Teach me about art and music. Explain painting, artists, artistic movements, creativity, singing, music theory and interesting stories behind famous works."
+            >
+
+                <div class="topic-icon">
+                    🎨
+                </div>
+
+                <h3>
+                    Art & Music
+                </h3>
+
+                <p>
+                    Explore painting, artists, creativity,
+                    singing and music.
+                </p>
+
+                <span>
+                    Get creative →
+                </span>
+
+            </button>
+
+
+            <!-- GAMES -->
+
+            <button
+                class="topic-card"
+                id="games"
+                data-topic="games"
+                data-question="Let's play a quiz. Ask me one interesting general knowledge question at a time, wait for my answer, keep my score and tell me whether I am correct."
+            >
+
+                <div class="topic-icon">
+                    🎮
+                </div>
+
+                <h3>
+                    Games & Quizzes
+                </h3>
+
+                <p>
+                    Trivia, riddles, quizzes and interactive
+                    knowledge challenges.
+                </p>
+
+                <span>
+                    Play & learn →
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURED WORLDS ================= -->
+
+    <section class="worlds-section">
+
+        <div class="section-heading">
+
+            <p class="eyebrow">
+                YOUR WORLDS
+            </p>
+
+            <h2>
+                Go deeper.
+            </h2>
+
+        </div>
+
+
+        <div class="world-grid">
+
+
+            <div class="world-card">
+
+                <span class="world-number">
+                    01
+                </span>
+
+                <h3>
+                    🏰 The Stories of Rajputana
+                </h3>
+
+                <p>
+                    From Mewar and Marwar to legendary warriors,
+                    magnificent forts and stories passed through generations.
+                </p>
+
+                <button
+                    class="world-button"
+                    data-question="Tell me a fascinating Rajputana story. Make it engaging and clearly tell me which parts are historically established and which are legend or oral tradition."
+                >
+                    Tell me a story →
+                </button>
+
             </div>
 
-            <div class="topic-card">
-                <div class="topic-icon">📈</div>
-                <h3>Investing</h3>
+
+            <div class="world-card">
+
+                <span class="world-number">
+                    02
+                </span>
+
+                <h3>
+                    📈 Learn Investing
+                </h3>
+
                 <p>
-                    Learn stocks, mutual funds, valuation, compounding,
-                    financial statements and long-term investing.
+                    Build financial knowledge from zero through
+                    simple explanations and practical examples.
                 </p>
-                <span>Learn finance →</span>
+
+                <button
+                    class="world-button"
+                    data-question="Start teaching me investing from zero. Give me my first lesson and then quiz me with a few questions."
+                >
+                    Start learning →
+                </button>
+
             </div>
 
-            <div class="topic-card">
-                <div class="topic-icon">🏍️</div>
-                <h3>India by Bike</h3>
+
+            <div class="world-card">
+
+                <span class="world-number">
+                    03
+                </span>
+
+                <h3>
+                    🏍️ India on Two Wheels
+                </h3>
+
                 <p>
-                    Motorcycles, riding knowledge, road trips, routes and
-                    discovering India on two wheels.
+                    Learn motorcycles and explore the incredible
+                    landscapes and roads of India.
                 </p>
-                <span>Start exploring →</span>
+
+                <button
+                    class="world-button"
+                    data-question="Plan an exciting motorcycle journey through India and explain what makes the route special."
+                >
+                    Plan a journey →
+                </button>
+
             </div>
 
-            <div class="topic-card">
-                <div class="topic-icon">📚</div>
-                <h3>Books & Novels</h3>
-                <p>
-                    Discover stories, characters, themes, ideas and memorable
-                    books from different genres.
-                </p>
-                <span>Enter the library →</span>
-            </div>
 
-            <div class="topic-card">
-                <div class="topic-icon">🎨</div>
-                <h3>Art & Music</h3>
-                <p>
-                    Explore painting, artists, creativity, singing, music
-                    theory and the stories behind art.
-                </p>
-                <span>Get creative →</span>
-            </div>
+            <div class="world-card">
 
-            <div class="topic-card" id="games">
-                <div class="topic-icon">🎮</div>
-                <h3>Games & Quizzes</h3>
+                <span class="world-number">
+                    04
+                </span>
+
+                <h3>
+                    📚 The Reading Room
+                </h3>
+
                 <p>
-                    Test your knowledge with trivia, riddles, quizzes and
-                    interactive challenges.
+                    Find novels, discover authors and explore
+                    characters, stories and ideas.
                 </p>
-                <span>Play & learn →</span>
+
+                <button
+                    class="world-button"
+                    data-question="Recommend five excellent novels from different genres and briefly explain why each one is worth reading."
+                >
+                    Find a book →
+                </button>
+
             </div>
 
         </div>
+
     </section>
 
-    <!-- AI Chat -->
+
+    <!-- ================= AI CHAT ================= -->
+
     <section class="chat-section" id="ask">
 
         <div class="chat-container">
 
+
             <div class="chat-header">
-                <div class="chat-sun">☀️</div>
+
+                <div class="chat-sun">
+                    ☀️
+                </div>
 
                 <div>
-                    <p class="eyebrow">YOUR AI KNOWLEDGE ENGINE</p>
-                    <h2>Ask Sunshine</h2>
-                    <p>
-                        Ask anything. Learn something new.
+
+                    <p class="eyebrow">
+                        SUNSHINE AI
                     </p>
+
+                    <h2>
+                        Ask anything.
+                    </h2>
+
+                    <p>
+                        Your curiosity is the only limit.
+                    </p>
+
                 </div>
+
             </div>
 
-            <div class="chat-messages" id="chatMessages">
+
+            <div
+                class="chat-messages"
+                id="chatMessages"
+            >
 
                 <div class="message bot-message">
+
                     <div class="message-content">
+
                         <p>
                             Hello! I'm Sunshine ☀️
                         </p>
 
                         <p>
-                            What are you curious about today?
+                            What would you like to explore today?
                         </p>
 
                         <div class="suggestion-list">
-                            <button class="suggestion">
-                                Tell me a Rajputana tale
+
+                            <button
+                                class="suggestion"
+                                data-question="Tell me a fascinating Rajputana tale."
+                            >
+                                🏰 Rajputana tale
                             </button>
 
-                            <button class="suggestion">
-                                Teach me investing
+                            <button
+                                class="suggestion"
+                                data-question="Teach me investing from absolute beginner level."
+                            >
+                                📈 Teach me investing
                             </button>
 
-                            <button class="suggestion">
-                                Recommend a novel
+                            <button
+                                class="suggestion"
+                                data-question="Recommend a great novel for me."
+                            >
+                                📚 Recommend a novel
                             </button>
 
-                            <button class="suggestion">
-                                Quiz me on India
+                            <button
+                                class="suggestion"
+                                data-question="Quiz me on Indian history."
+                            >
+                                🎮 Quiz me
                             </button>
+
                         </div>
+
                     </div>
+
                 </div>
 
             </div>
 
+
             <div class="chat-input-area">
+
                 <input
                     type="text"
                     id="userInput"
                     placeholder="Ask Sunshine anything..."
                     autocomplete="off"
-                />
+                >
 
-                <button id="sendBtn">
+                <button
+                    id="sendBtn"
+                >
                     Send ☀️
                 </button>
+
             </div>
 
+
             <div class="chat-footer">
+
                 <p>
                     ✨ Powered by Sunshine AI
                 </p>
+
             </div>
 
         </div>
 
     </section>
 
-    <!-- Future Vision -->
+
+    <!-- ================= FUTURE ================= -->
+
     <section class="vision-section">
 
         <div class="vision-content">
 
-            <p class="eyebrow">THE IDEA</p>
+            <p class="eyebrow">
+                THE VISION
+            </p>
 
             <h2>
-                One curious mind.
-                <br />
-                A whole world to explore.
+                One place.
+                <br>
+                Infinite curiosity.
             </h2>
 
             <p>
-                Sunshine brings different kinds of knowledge together in one
-                friendly place — from ancient forts and forgotten stories to
-                investing, motorcycles, books and the world around us.
+                Sunshine is being built as a friendly knowledge universe
+                where history, finance, books, motorcycles, travel,
+                creativity and games come together with AI.
             </p>
 
         </div>
 
     </section>
 
-    <!-- Footer -->
+
+    <!-- ================= FOOTER ================= -->
+
     <footer>
-        <div class="footer-logo">☀️ SUNSHINE</div>
+
+        <div class="footer-logo">
+            ☀️ SUNSHINE
+        </div>
 
         <p>
             Made with ❤️ for a special friend
@@ -226,7 +547,9 @@
         <p class="footer-small">
             Learn something. Explore something. Stay curious.
         </p>
+
     </footer>
+
 
     <script src="script.js"></script>
 
