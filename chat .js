@@ -10,36 +10,18 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: "Message is required" });
         }
 
-        const GROQ_API_KEY = process.env.GROQ_API_KEY;
+        const apiKey = process.env.GROQ_API_KEY;
 
-        if (!GROQ_API_KEY) {
-            return res.status(500).json({
-                error: "GROQ_API_KEY is not configured"
-            });
+        if (!apiKey) {
+            return res.status(500).json({ error: "GROQ_API_KEY is missing" });
         }
-
-        const systemPrompt = `
-You are Sunshine ☀️, a warm, friendly and knowledgeable AI companion.
-
-You specialize in:
-- Rajputana history, legends and historical tales
-- Beginner-friendly investing and financial education
-- Books, novels, characters, summaries and themes
-- Motorcycles and biking
-- Motorcycle travel across India
-- Quizzes, trivia and games
-
-Be conversational, encouraging and engaging.
-Explain difficult ideas simply.
-For financial questions, provide educational information rather than personalized financial advice.
-`;
 
         const response = await fetch(
             "https://api.groq.com/openai/v1/chat/completions",
             {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Authorization": `Bearer ${apiKey}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -47,7 +29,17 @@ For financial questions, provide educational information rather than personalize
                     messages: [
                         {
                             role: "system",
-                            content: systemPrompt
+                            content: `You are Sunshine ☀️, a warm, friendly and knowledgeable AI companion.
+
+You specialize in:
+- Rajputana and Indian history and fascinating historical tales
+- Investing and financial education for beginners
+- Books and novels
+- Motorcycles and biking
+- Travelling India by motorcycle
+- Quizzes, trivia and fun games
+
+Be warm, encouraging, conversational and occasionally use emojis. Explain things clearly and never pretend to know something you don't know.`
                         },
                         {
                             role: "user",
@@ -60,28 +52,26 @@ For financial questions, provide educational information rather than personalize
             }
         );
 
-        if (!response.ok) {
-            const error = await response.text();
-            console.error("Groq error:", error);
+        const data = await response.json();
 
+        if (!response.ok) {
+            console.error("Groq error:", data);
             return res.status(500).json({
-                error: "Groq request failed"
+                error: "Groq request failed",
+                details: data
             });
         }
 
-        const data = await response.json();
-
-        const reply =
-            data.choices?.[0]?.message?.content ||
-            "Sorry, Sunshine couldn't find an answer.";
-
-        return res.status(200).json({ reply });
+        return res.status(200).json({
+            reply: data.choices[0].message.content
+        });
 
     } catch (error) {
-        console.error(error);
+        console.error("Server error:", error);
 
         return res.status(500).json({
-            error: "Something went wrong"
+            error: "Something went wrong",
+            details: error.message
         });
     }
 }
