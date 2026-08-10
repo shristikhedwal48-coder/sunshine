@@ -1,844 +1,950 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GYAAN ☀️ — Knowledge, Curiosity & Discovery</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        SUNSHINE ☀️ — Your Personal Knowledge World
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#fffaf3;
+color:#30241d;
+line-height:1.6
+}
+button,input{font:inherit}
+button{cursor:pointer}
+nav{
+position:sticky;top:0;z-index:1000;
+display:flex;justify-content:space-between;align-items:center;
+padding:16px 6%;
+background:rgba(255,250,243,.97);
+border-bottom:1px solid #eadcca
+}
+.logo{font-size:1.5rem;font-weight:800}
+nav a{margin-left:22px;text-decoration:none;color:#594638;font-weight:600}
+nav a:hover{color:#b66b25}
+.hero{
+min-height:78vh;display:flex;align-items:center;justify-content:center;
+text-align:center;padding:80px 20px;
+background:radial-gradient(circle at 50% 0,#ffe9b5,transparent 52%),
+linear-gradient(#fffaf3,#f5e4ce)
+}
+.hero-inner{max-width:900px}
+.sun{font-size:5rem}
+.eyebrow{
+color:#b66b25;font-size:.75rem;font-weight:800;
+letter-spacing:3px;margin-bottom:10px
+}
+.hero h1{
+font-size:clamp(3.5rem,10vw,7rem);line-height:1;
+letter-spacing:-4px;margin:12px 0
+}
+.hero h1 span{color:#b66b25}
+.tagline{font-size:1.5rem;font-weight:700}
+.hero p:last-of-type{max-width:700px;margin:12px auto;color:#756454}
+.btn{
+display:inline-block;padding:13px 24px;border:0;border-radius:40px;
+background:#30241d;color:white;text-decoration:none;font-weight:700
+}
+.btn.gold{background:#b66b25}
+section{padding:80px 6%}
+.heading{text-align:center;max-width:760px;margin:0 auto 40px}
+.heading h2{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;margin-bottom:10px}
+.heading p:last-child{color:#756454}
+.grid{
+max-width:1150px;margin:auto;display:grid;
+grid-template-columns:repeat(3,1fr);gap:20px
+}
+.card{
+background:white;border:1px solid #e7d7c1;border-radius:22px;
+padding:27px;transition:.2s
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 15px 35px #5b40201b}
+.icon{font-size:2.5rem;margin-bottom:12px}
+.card h3{margin-bottom:8px}
+.card p{color:#756454;font-size:.94rem}
+.card button{
+margin-top:17px;padding:9px 16px;border-radius:25px;
+border:1px solid #d8c3a7;background:#fffaf3;color:#9b5c20;font-weight:700
+}
+.cream{background:#f4e5d1}
+.dark{background:#30241d;color:white}
+.dark .heading p:last-child{color:#cbbdad}
+.dark .card{background:#3d3027;border-color:#56463a}
+.dark .card p{color:#d5c8bb}
+.dark .card button{background:#fffaf3}
+.explorer{max-width:1100px;margin:auto}
+.toolbar{
+display:flex;gap:10px;flex-wrap:wrap;margin-bottom:25px
+}
+.search{
+flex:1;min-width:220px;padding:13px 16px;border-radius:30px;
+border:1px solid #d8c5ad;background:white;outline:none
+}
+.pill{
+padding:10px 16px;border:1px solid #d8c5ad;
+border-radius:30px;background:white;color:#684b32;font-weight:700
+}
+.pill.active,.pill:hover{background:#30241d;color:white}
+.hidden{display:none!important}
+.chat-wrap{max-width:900px;margin:auto;background:white;border-radius:25px;overflow:hidden;box-shadow:0 20px 50px #4d321e1a}
+.chat-head{background:#30241d;color:white;padding:27px}
+.chat-head p{color:#d9ccbe}
+.messages{height:420px;overflow-y:auto;padding:22px;background:#fffdf9}
+.msg{display:flex;margin-bottom:15px}
+.msg.user{justify-content:flex-end}
+.bubble{max-width:78%;padding:13px 16px;border-radius:17px;white-space:normal}
+.msg.bot .bubble{background:#f1e5d5}
+.msg.user .bubble{background:#30241d;color:white}
+.chat-input{display:flex;gap:9px;padding:17px;border-top:1px solid #eadcca}
+.chat-input input{flex:1;min-width:0;padding:13px;border:1px solid #d8c5ad;border-radius:13px;outline:none}
+.chat-input button{border:0;border-radius:13px;background:#b66b25;color:white;padding:0 20px;font-weight:700}
+.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.suggestions button{border:1px solid #d6c2a8;background:white;border-radius:20px;padding:7px 11px}
+.quiz-area{max-width:850px;margin:auto}
+.quiz-topics{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.topic{
+padding:22px 10px;border:1px solid #dfccb4;border-radius:20px;
+background:white;text-align:center;font-size:2rem
+}
+.topic strong{display:block;font-size:1rem}
+.topic small{color:#806e5d;font-size:.8rem}
+.quiz-box,.result-box{
+margin-top:30px;background:white;border:1px solid #dfccb4;
+border-radius:24px;padding:28px
+}
+.quiz-header{display:flex;justify-content:space-between;border-bottom:1px solid #eadcca;padding-bottom:15px}
+.question{font-size:1.35rem;font-weight:700;margin:25px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.answer{
+padding:15px;text-align:left;border:1px solid #dcc9b0;
+border-radius:13px;background:#fffdf9
+}
+.answer.correct{background:#e3f1e5;border-color:#579064}
+.answer.wrong{background:#f6dfdc;border-color:#ba635c}
+.answer:disabled{cursor:default}
+.feedback{min-height:28px;margin-top:15px;font-weight:700}
+.next{display:none;margin:10px auto 0}
+.result-box{text-align:center}
+.final{font-size:3rem;color:#b66b25;font-weight:800}
+footer{padding:45px 20px;text-align:center;background:#30241d;color:#e9ddd0}
+footer small{display:block;color:#a99989;margin-top:6px}
+@media(max-width:850px){
+.grid{grid-template-columns:1fr 1fr}
+.quiz-topics{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+nav{flex-direction:column;gap:8px}
+nav a{margin:0 7px;font-size:.85rem}
+section{padding:60px 5%}
+.grid{grid-template-columns:1fr}
+.quiz-topics{grid-template-columns:1fr 1fr}
+.answers{grid-template-columns:1fr}
+.chat-input{flex-direction:column}
+.chat-input button{padding:12px}
+.bubble{max-width:90%}
+}
+</style>
 </head>
-
 
 <body>
 
+<nav>
+<div class="logo">☀️ GYAAN</div>
+<div>
+<a href="#explore">Explore</a>
+<a href="#history">History</a>
+<a href="#finance">Finance</a>
+<a href="#quiz">Games</a>
+<a href="#sunshine">Sunshine</a>
+</div>
+</nav>
+
+<header class="hero">
+<div class="hero-inner">
+<div class="sun">☀️</div>
+<p class="eyebrow">WELCOME TO GYAAN</p>
+<h1>A World of <span>Knowledge</span></h1>
+<p class="tagline">Learn. Explore. Discover.</p>
+<p>
+History, finance, books, motorcycles, travel, art,
+music, games and more — guided by Sunshine AI.
+</p>
+<a class="btn" href="#sunshine">💬 Ask Sunshine</a>
+</div>
+</header>
+
+
+<!-- MAIN WORLDS -->
+
+<section id="explore">
+<div class="heading">
+<p class="eyebrow">EXPLORE</p>
+<h2>Choose your world</h2>
+<p>Every subject is a doorway to something new.</p>
+</div>
+
+<div class="grid">
+
+<div class="card" onclick="ask('Teach me about Rajputana history.')">
+<div class="icon">🏰</div>
+<h3>Rajputana</h3>
+<p>Rulers, kingdoms, battles, forts, culture and fascinating historical tales.</p>
+<button>Explore →</button>
+</div>
+
+<div class="card" onclick="ask('Teach me investing from absolute beginner level.')">
+<div class="icon">📈</div>
+<h3>Investing</h3>
+<p>Stocks, companies, financial statements, valuation and investing fundamentals.</p>
+<button>Learn finance →</button>
+</div>
+
+<div class="card" onclick="ask('Teach me about motorcycles and travelling India by motorcycle.')">
+<div class="icon">🏍️</div>
+<h3>India by Bike</h3>
+<p>Motorcycles, routes, touring ideas and discovering India on two wheels.</p>
+<button>Explore rides →</button>
+</div>
+
+<div class="card" onclick="ask('Recommend books and explain their themes and characters.')">
+<div class="icon">📚</div>
+<h3>Books & Novels</h3>
+<p>Stories, classics, romance, characters, themes and book recommendations.</p>
+<button>Open library →</button>
+</div>
+
+<div class="card" onclick="ask('Teach me about art and music.')">
+<div class="icon">🎨</div>
+<h3>Art & Music</h3>
+<p>Artists, movements, instruments, music, creativity and culture.</p>
+<button>Explore →</button>
+</div>
+
+<div class="card" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">
+<div class="icon">🎮</div>
+<h3>Games & Quizzes</h3>
+<p>Challenge yourself with knowledge games and interactive quizzes.</p>
+<button>Play now →</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- RAJPUTANA EXPLORER -->
+
+<section class="cream" id="history">
+<div class="heading">
+<p class="eyebrow">RAJPUTANA EXPLORER</p>
+<h2>🏰 Discover Rajputana</h2>
+<p>Explore the people, places and stories of Rajasthan.</p>
+</div>
+
+<div class="explorer">
+<div class="toolbar">
+<input class="search" id="historySearch" placeholder="Search Rajputana...">
+<button class="pill active" onclick="filterHistory('all',this)">All</button>
+<button class="pill" onclick="filterHistory('rulers',this)">Rulers</button>
+<button class="pill" onclick="filterHistory('forts',this)">Forts</button>
+<button class="pill" onclick="filterHistory('battles',this)">Battles</button>
+<button class="pill" onclick="filterHistory('tales',this)">Tales</button>
+</div>
+
+<div class="grid" id="historyGrid">
+
+<div class="card history-card" data-type="rulers">
+<div class="icon">👑</div><h3>Maharana Pratap</h3>
+<p>Explore his life, Mewar, resistance against the Mughal Empire and the historical context of Haldighati.</p>
+<button onclick="ask('Tell me the historically established story of Maharana Pratap and the Battle of Haldighati. Distinguish legend from evidence.')">Ask Sunshine</button>
+</div>
+
+<div class="card history-card" data-type="rulers">
+<div class="icon">⚔️</div><h3>Rana Kumbha</h3>
+<p>A major ruler of Mewar associated with fort building, architecture and cultural development.</p>
+<button onclick="ask('Tell me about Rana Kumbha and his contributions to Mewar.')">Learn</button>
+</div>
+
+<div class="card history-card" data-type="rulers">
+<div class="icon">🛡️</div><h3>Rao Jodha</h3>
+<p>The Rathore ruler associated with the foundation of Jodhpur and Mehrangarh.</p>
+<button onclick="ask('Tell me about Rao Jodha and the founding of Jodhpur.')">Learn</button>
+</div>
+
+<div class="card history-card" data-type="forts">
+<div class="icon">🏯</div><h3>Chittorgarh Fort</h3>
+<p>One of India's most famous historic forts and a major symbol of Mewar.</p>
+<button onclick="ask('Tell me the history of Chittorgarh Fort, including its major sieges.')">Explore</button>
+</div>
+
+<div class="card history-card" data-type="forts">
+<div class="icon">🧱</div><h3>Kumbhalgarh</h3>
+<p>Famous for its enormous defensive wall and its connection with Rana Kumbha.</p>
+<button onclick="ask('Tell me about Kumbhalgarh Fort and its historical importance.')">Explore</button>
+</div>
+
+<div class="card history-card" data-type="forts">
+<div class="icon">🏰</div><h3>Mehrangarh</h3>
+<p>The imposing fort overlooking Jodhpur and one of Rajasthan's great architectural landmarks.</p>
+<button onclick="ask('Tell me the history of Mehrangarh Fort and Jodhpur.')">Explore</button>
+</div>
+
+<div class="card history-card" data-type="battles">
+<div class="icon">⚔️</div><h3>Battle of Haldighati</h3>
+<p>A famous 16th-century battle involving Maharana Pratap and Mughal forces.</p>
+<button onclick="ask('Explain the Battle of Haldighati carefully, including what historians agree on and what is debated.')">Explore</button>
+</div>
+
+<div class="card history-card" data-type="battles">
+<div class="icon">🛡️</div><h3>Sieges of Chittor</h3>
+<p>Discover the major sieges that shaped the history and memory of Mewar.</p>
+<button onclick="ask('Tell me about the major sieges of Chittorgarh.')">Explore</button>
+</div>
+
+<div class="card history-card" data-type="tales">
+<div class="icon">📜</div><h3>Rajputana Tales</h3>
+<p>Ask Sunshine for a historical tale and learn which elements are documented and which are legendary.</p>
+<button onclick="ask('Tell me a fascinating Rajputana tale and clearly separate historical fact from legend.')">Tell me a tale</button>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- FINANCE HUB -->
+
+<section id="finance">
+<div class="heading">
+<p class="eyebrow">FINANCE LEARNING HUB</p>
+<h2>💰 Understand Money & Markets</h2>
+<p>Learn finance step by step, from absolute beginner to company analysis.</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">📒</div>
+<h3>Accounting Basics</h3>
+<p>Assets, liabilities, equity, revenue, expenses, profit and cash flow.</p>
+<button onclick="ask('Teach me accounting from absolute zero using simple examples.')">Start</button>
+</div>
+
+<div class="card">
+<div class="icon">📊</div>
+<h3>Financial Statements</h3>
+<p>Understand the income statement, balance sheet and cash-flow statement.</p>
+<button onclick="ask('Teach me how to read the three financial statements.')">Learn</button>
+</div>
+
+<div class="card">
+<div class="icon">🔢</div>
+<h3>Ratio Analysis</h3>
+<p>Learn profitability, liquidity, leverage, efficiency and valuation ratios.</p>
+<button onclick="ask('Teach me financial ratios with simple examples.')">Learn</button>
+</div>
+
+<div class="card">
+<div class="icon">💻</div>
+<h3>Financial Modelling</h3>
+<p>Build forecasts, assumptions, three-statement models and scenarios.</p>
+<button onclick="ask('Teach me financial modelling step by step from beginner level.')">Learn</button>
+</div>
+
+<div class="card">
+<div class="icon">🏢</div>
+<h3>Company Analysis</h3>
+<p>Learn how investors study a company's business and financial performance.</p>
+<button onclick="ask('Teach me how to analyse a company before investing.')">Analyse</button>
+</div>
+
+<div class="card">
+<div class="icon">💎</div>
+<h3>Valuation</h3>
+<p>Explore DCF, multiples and the basic ideas behind valuing businesses.</p>
+<button onclick="ask('Explain company valuation and DCF from beginner level.')">Learn</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- INDIA BY BIKE -->
+
+<section class="cream">
+<div class="heading">
+<p class="eyebrow">INDIA BY BIKE</p>
+<h2>🏍️ The open road</h2>
+<p>Explore India's landscapes, roads and motorcycle culture.</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🏔️</div>
+<h3>Himalayan Rides</h3>
+<p>Mountain roads, high passes and unforgettable Himalayan landscapes.</p>
+<button onclick="ask('Suggest beginner-friendly motorcycle touring ideas in the Indian Himalayas.')">Explore</button>
+</div>
+
+<div class="card">
+<div class="icon">🏜️</div>
+<h3>Rajasthan</h3>
+<p>Forts, deserts, heritage cities and long open roads.</p>
+<button onclick="ask('Plan an interesting Rajasthan motorcycle route for a traveller.')">Plan route</button>
+</div>
+
+<div class="card">
+<div class="icon">🌊</div>
+<h3>Coastal India</h3>
+<p>Ride beside the sea and discover coastal towns and landscapes.</p>
+<button onclick="ask('Suggest a motorcycle road trip along India's west coast.')">Explore</button>
+</div>
+
+<div class="card">
+<div class="icon">🌴</div>
+<h3>South India</h3>
+<p>Hills, forests, temples, coffee country and winding roads.</p>
+<button onclick="ask('Suggest beautiful motorcycle touring routes in South India.')">Explore</button>
+</div>
+
+<div class="card">
+<div class="icon">🏍️</div>
+<h3>Know Your Bike</h3>
+<p>Understand engine size, torque, horsepower, suspension, tyres and ergonomics.</p>
+<button onclick="ask('Teach me motorcycle specifications from absolute beginner level.')">Learn</button>
+</div>
+
+<div class="card">
+<div class="icon">🧭</div>
+<h3>Trip Planning</h3>
+<p>Learn how to plan distance, fuel, accommodation, weather and safety.</p>
+<button onclick="ask('Teach me how to plan a long motorcycle trip in India.')">Learn</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- BOOKS -->
+
+<section>
+<div class="heading">
+<p class="eyebrow">THE GYAAN LIBRARY</p>
+<h2>📚 Books & Novels</h2>
+<p>Stories worth discovering.</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">❤️</div>
+<h3>Romance</h3>
+<p>Love stories, relationships, longing and unforgettable characters.</p>
+<button onclick="ask('Recommend five excellent romance novels and explain why each is worth reading.')">Recommend</button>
+</div>
+
+<div class="card">
+<div class="icon">🏛️</div>
+<h3>Classics</h3>
+<p>Timeless novels whose characters and ideas still matter.</p>
+<button onclick="ask('Recommend classic novels for someone who enjoyed Pride and Prejudice.')">Explore</button>
+</div>
+
+<div class="card">
+<div class="icon">💼</div>
+<h3>Business & Finance</h3>
+<p>Books about companies, markets, money and decision-making.</p>
+<button onclick="ask('Recommend beginner-friendly books for learning investing and finance.')">Explore</button>
+</div>
+
+<div class="card">
+<div class="icon">🧠</div>
+<h3>Ideas & Growth</h3>
+<p>Books about thinking, habits, psychology and personal development.</p>
+<button onclick="ask('Recommend books that improve thinking and understanding of people.')">Explore</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- GAMES -->
+
+<section class="dark" id="quiz">
+<div class="heading">
+<p class="eyebrow">GYAAN GAMES</p>
+<h2>🎮 Test your knowledge</h2>
+<p>Choose a category and play.</p>
+</div>
+
+<div class="quiz-area">
+
+<div class="quiz-topics">
+
+<button class="topic" onclick="startQuiz('rajputana')">
+🏰<strong>Rajputana</strong><small>10 questions</small>
+</button>
+
+<button class="topic" onclick="startQuiz('investing')">
+📈<strong>Investing</strong><small>10 questions</small>
+</button>
+
+<button class="topic" onclick="startQuiz('india')">
+🇮🇳<strong>India</strong><small>10 questions</small>
+</button>
+
+<button class="topic" onclick="startQuiz('rapid')">
+⚡<strong>Rapid Fire</strong><small>10 questions</small>
+</button>
+
+</div>
+
+<div class="quiz-box" id="quizBox" style="display:none">
+
+<div class="quiz-header">
+<span id="qNumber">Question 1 / 10</span>
+<span>Score: <b id="score">0</b></span>
+</div>
+
+<div class="question" id="question"></div>
+
+<div class="answers" id="answers"></div>
+
+<div class="feedback" id="feedback"></div>
+
+<button class="btn next" id="next" onclick="nextQuestion()">Next Question →</button>
+
+</div>
+
+<div class="result-box" id="resultBox" style="display:none">
+<div class="icon">🏆</div>
+<h2>Quiz Complete!</h2>
+<div class="final" id="finalScore">0 / 100</div>
+<p id="resultText"></p>
+<br>
+<button class="btn gold" onclick="resetQuiz()">Play Again</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- SUNSHINE -->
+
+<section class="cream" id="sunshine">
+
+<div class="heading">
+<p class="eyebrow">YOUR AI GUIDE</p>
+<h2>☀️ Talk to Sunshine</h2>
+<p>Ask questions, learn something new or simply explore.</p>
+</div>
+
+<div class="chat-wrap">
+
+<div class="chat-head">
+<h2>☀️ Sunshine</h2>
+<p>Your warm and curious GYAAN companion.</p>
+</div>
+
+<div class="messages" id="messages">
+
+<div class="msg bot">
+<div class="bubble">
+Hello! I'm Sunshine ☀️
+<br><br>
+What are we curious about today?
+
+<div class="suggestions">
+<button onclick="ask('Tell me a fascinating Rajputana tale.')">🏰 Rajputana</button>
+<button onclick="ask('Teach me investing from zero.')">📈 Investing</button>
+<button onclick="ask('Recommend me a great novel.')">📚 Books</button>
+<button onclick="ask('Tell me about an interesting motorcycle route in India.')">🏍️ Bikes</button>
+</div>
+</div>
+</div>
+
+</div>
 
-    <!-- ================= NAVIGATION ================= -->
+<div class="chat-input">
+<input id="userInput" placeholder="Ask Sunshine anything..." autocomplete="off">
+<button onclick="sendMessage()">Send ☀️</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- VISION -->
+
+<section>
+<div class="heading">
+<p class="eyebrow">THE VISION</p>
+<h2>One place. Infinite curiosity.</h2>
+<p>
+GYAAN brings knowledge, exploration, learning and play
+together around one central AI companion — Sunshine.
+</p>
+</div>
+</section>
 
-    <nav class="navbar">
 
-        <div class="logo">
-            ☀️ SUNSHINE
-        </div>
+<footer>
+<strong>☀️ GYAAN</strong>
+<p>Learn something. Explore something. Stay curious.</p>
+<small>Powered by Sunshine AI</small>
+</footer>
 
-        <div class="nav-links">
 
-            <a href="#explore">
-                Explore
-            </a>
+<script>
 
-            <a href="#quiz">
-                Quiz
-            </a>
+/* ================= CHAT ================= */
 
-            <a href="#ask">
-                Ask Sunshine
-            </a>
+const input=document.getElementById("userInput");
+const messages=document.getElementById("messages");
 
-        </div>
+function addMessage(text,type){
+const row=document.createElement("div");
+row.className="msg "+type;
 
-    </nav>
+const bubble=document.createElement("div");
+bubble.className="bubble";
 
+bubble.innerHTML=String(text)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/\n/g,"<br>");
 
+row.appendChild(bubble);
+messages.appendChild(row);
+messages.scrollTop=messages.scrollHeight;
+}
 
-    <!-- ================= HERO ================= -->
+async function sendMessage(){
 
-    <header class="hero">
+const text=input.value.trim();
 
-        <div class="hero-content">
+if(!text)return;
 
-            <div class="sun-icon">
-                ☀️
-            </div>
+addMessage(text,"user");
+input.value="";
 
-            <p class="eyebrow">
-                WELCOME TO SUNSHINE
-            </p>
+addMessage("Sunshine is thinking... ☀️","bot");
 
-            <h1>
-                Your Personal<br>
-                Knowledge World
-            </h1>
+const thinking=messages.lastElementChild;
 
-            <p class="tagline">
-                Learn. Explore. Discover.
-            </p>
+try{
 
-            <p class="sub-tagline">
-                History, investing, motorcycles, travel,
-                books, art, music, games and everything
-                you're curious about.
-            </p>
+const response=await fetch("/api/chat",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({message:text})
+});
 
-            <a
-                href="#ask"
-                class="hero-button"
-            >
-                💬 Ask Sunshine
-            </a>
+const data=await response.json();
 
-        </div>
+thinking.remove();
 
-    </header>
+if(!response.ok)throw new Error(data.error);
 
+addMessage(data.reply||"I couldn't find an answer.","bot");
 
+}catch(error){
 
-    <!-- ================= EXPLORE ================= -->
+thinking.remove();
 
-    <section
-        class="explore-section"
-        id="explore"
-    >
+addMessage(
+"Oops! ☀️ I couldn't connect to Sunshine right now. Please try again.",
+"bot"
+);
 
-        <div class="section-heading">
+console.error(error);
 
-            <p class="eyebrow">
-                EXPLORE
-            </p>
+}
+}
 
-            <h2>
-                What are you curious about?
-            </h2>
+input.addEventListener("keydown",e=>{
+if(e.key==="Enter")sendMessage();
+});
 
-            <p>
-                Pick a world to explore, or simply
-                ask Sunshine anything.
-            </p>
+function ask(text){
+document.getElementById("sunshine").scrollIntoView({behavior:"smooth"});
+setTimeout(()=>{
+input.value=text;
+sendMessage();
+},400);
+}
 
-        </div>
 
+/* ================= HISTORY SEARCH ================= */
 
-        <div class="topic-grid">
+const historySearch=document.getElementById("historySearch");
 
+historySearch.addEventListener("input",function(){
 
-            <!-- RAJPUTANA -->
+const query=this.value.toLowerCase();
 
-            <button
-                class="topic-card"
-                data-topic="rajputana"
-                data-question="Teach me about Rajputana history. Give me fascinating stories, rulers, kingdoms, battles, forts, culture and legends. Clearly separate historical facts from legends and oral traditions."
-            >
+document.querySelectorAll(".history-card").forEach(card=>{
 
-                <div class="topic-icon">
-                    🏰
-                </div>
+card.classList.toggle(
+"hidden",
+!card.innerText.toLowerCase().includes(query)
+);
 
-                <h3>
-                    Rajputana
-                </h3>
+});
 
-                <p>
-                    Rulers, kingdoms, battles, forts,
-                    legends, culture and fascinating
-                    historical tales.
-                </p>
+});
 
-                <span>
-                    Explore history →
-                </span>
+function filterHistory(type,button){
 
-            </button>
+document.querySelectorAll(".pill").forEach(x=>x.classList.remove("active"));
+button.classList.add("active");
 
+document.querySelectorAll(".history-card").forEach(card=>{
 
+card.classList.toggle(
+"hidden",
+type!=="all" && card.dataset.type!==type
+);
 
-            <!-- INVESTING -->
+});
 
-            <button
-                class="topic-card"
-                data-topic="investing"
-                data-question="Teach me investing from absolute beginner level. Start with the basics and gradually explain stocks, mutual funds, index funds, compounding, risk, financial statements and long-term investing."
-            >
+}
 
-                <div class="topic-icon">
-                    📈
-                </div>
 
-                <h3>
-                    Investing
-                </h3>
+/* ================= QUIZ DATA ================= */
 
-                <p>
-                    Learn investing, stocks, valuation,
-                    compounding, financial statements
-                    and financial concepts.
-                </p>
+const quizzes={
 
-                <span>
-                    Learn finance →
-                </span>
+rajputana:[
 
-            </button>
+["Which city is historically associated with Mewar?",["Udaipur","Jaisalmer","Bikaner","Ajmer"],0],
 
+["Which ruler is associated with the Battle of Haldighati?",["Maharana Pratap","Rana Sanga","Rao Jodha","Man Singh I"],0],
 
+["Mehrangarh Fort is located in which city?",["Jodhpur","Udaipur","Jaipur","Kota"],0],
 
-            <!-- INDIA BY BIKE -->
+["Which dynasty is associated with Mewar?",["Sisodia","Rathore","Kachwaha","Chauhan"],0],
 
-            <button
-                class="topic-card"
-                data-topic="bikes"
-                data-question="Teach me about motorcycles and travelling India by bike. Explain motorcycle basics, types of bikes, specifications, riding knowledge, touring and interesting Indian motorcycle routes."
-            >
+["Which city is known as the Pink City?",["Jaipur","Jodhpur","Udaipur","Bundi"],0],
 
-                <div class="topic-icon">
-                    🏍️
-                </div>
+["Kumbhalgarh is strongly associated with which ruler?",["Rana Kumbha","Rao Jodha","Prithviraj Chauhan","Man Singh I"],0],
 
-                <h3>
-                    India by Bike
-                </h3>
+["The Rathores are strongly associated with which region?",["Marwar","Mewar","Amber","Matsya"],0],
 
-                <p>
-                    Motorcycles, riding knowledge,
-                    touring, routes and discovering
-                    India on two wheels.
-                </p>
+["Which fort is located in Chittorgarh?",["Chittorgarh Fort","Mehrangarh","Junagarh","Amber"],0],
 
-                <span>
-                    Start riding →
-                </span>
+["Jaisalmer Fort is in which state?",["Rajasthan","Gujarat","Madhya Pradesh","Haryana"],0],
 
-            </button>
+["What historic name was commonly used for the region corresponding broadly to Rajasthan?",["Rajputana","Magadha","Kalinga","Avanti"],0]
 
+],
 
+investing:[
 
-            <!-- BOOKS -->
+["What does a share of stock represent?",["Ownership in a company","A bank deposit","A tax","A loan"],0],
 
-            <button
-                class="topic-card"
-                data-topic="books"
-                data-question="Help me explore books and novels. Recommend interesting books, explain plots, characters, themes, symbolism and lessons, and help me discover what I might enjoy reading."
-            >
+["What is compounding?",["Earning returns on previous returns","Paying tax","Selling daily","Avoiding investments"],0],
 
-                <div class="topic-icon">
-                    📚
-                </div>
+["What does diversification mean?",["Spreading investments","Buying one stock","Avoiding markets","Only buying gold"],0],
 
-                <h3>
-                    Books &amp; Novels
-                </h3>
+["What is a mutual fund?",["A pooled investment vehicle","A tax","A loan","A bank"],0],
 
-                <p>
-                    Discover novels, characters,
-                    stories, themes, ideas and
-                    memorable books.
-                </p>
+["What does P/E mean?",["Price to earnings","Profit to expenses","Price to equity only","Production to employees"],0],
 
-                <span>
-                    Enter the library →
-                </span>
+["Higher potential returns often involve what?",["Higher risk","No risk","Guaranteed profit","No uncertainty"],0],
 
-            </button>
+["What does an index fund generally track?",["A market index","A bank account","One private company","A tax rate"],0],
 
+["What is a dividend?",["A distribution to shareholders","A tax","A loan","A stock exchange"],0],
 
+["Why does inflation matter?",["It can reduce purchasing power","It guarantees gains","It removes risk","It guarantees dividends"],0],
 
-            <!-- ART -->
+["Why can long-term investing be useful?",["It gives investments time to potentially grow","It guarantees profit","It removes all risk","It avoids diversification"],0]
 
-            <button
-                class="topic-card"
-                data-topic="art"
-                data-question="Teach me about art and music. Explain painting, artists, artistic movements, creativity, singing, music theory and interesting stories behind famous works."
-            >
+],
 
-                <div class="topic-icon">
-                    🎨
-                </div>
+india:[
 
-                <h3>
-                    Art &amp; Music
-                </h3>
+["What is the capital of India?",["New Delhi","Mumbai","Kolkata","Jaipur"],0],
 
-                <p>
-                    Explore painting, artists,
-                    creativity, singing and music.
-                </p>
+["Which major river flows through northern India?",["Ganga","Narmada","Godavari","Kaveri"],0],
 
-                <span>
-                    Get creative →
-                </span>
+["The Taj Mahal is located in which city?",["Agra","Delhi","Jaipur","Lucknow"],0],
 
-            </button>
+["Which state contains much of the Thar Desert?",["Rajasthan","Kerala","Assam","Goa"],0],
 
+["Which city is known as the City of Joy?",["Kolkata","Delhi","Pune","Surat"],0],
 
+["Which mountain range lies along northern India?",["Himalayas","Aravallis","Western Ghats","Vindhyas"],0],
 
-            <!-- GAMES -->
+["Which festival is known as the Festival of Lights?",["Diwali","Holi","Onam","Baisakhi"],0],
 
-            <button
-                class="topic-card"
-                data-topic="games"
-                data-question="Let's play a quiz. Ask me one interesting general knowledge question at a time, wait for my answer, keep my score and tell me whether I am correct."
-            >
+["Gateway of India is in which city?",["Mumbai","Chennai","Ahmedabad","Lucknow"],0],
 
-                <div class="topic-icon">
-                    🎮
-                </div>
+["Which classical dance originated in Tamil Nadu?",["Bharatanatyam","Kathak","Manipuri","Odissi"],0],
 
-                <h3>
-                    Games &amp; Quizzes
-                </h3>
+["Which ocean lies south of India?",["Indian Ocean","Atlantic Ocean","Pacific Ocean","Arctic Ocean"],0]
 
-                <p>
-                    Trivia, riddles, quizzes and
-                    interactive knowledge challenges.
-                </p>
+],
 
-                <span>
-                    Play &amp; learn →
-                </span>
+rapid:[
 
-            </button>
+["What is the capital of Rajasthan?",["Jaipur","Jodhpur","Udaipur","Kota"],0],
 
-        </div>
+["Which metal is commonly associated with gold's chemical symbol?",["Au","Ag","Fe","Cu"],0],
 
-    </section>
+["How many continents are there?",["7","5","6","8"],0],
 
+["Which planet is known as the Red Planet?",["Mars","Venus","Jupiter","Mercury"],0],
 
+["What is H2O?",["Water","Oxygen","Hydrogen","Salt"],0],
 
-    <!-- ================= QUIZ ================= -->
+["Which is the largest planet?",["Jupiter","Earth","Saturn","Neptune"],0],
 
-    <section
-        class="quiz-section"
-        id="quiz"
-    >
+["Who wrote Pride and Prejudice?",["Jane Austen","Charlotte Brontë","Emily Brontë","George Eliot"],0],
 
-        <div class="section-heading">
+["How many sides does a hexagon have?",["6","5","7","8"],0],
 
-            <p class="eyebrow">
-                TEST YOUR KNOWLEDGE
-            </p>
+["Which gas do plants primarily use in photosynthesis?",["Carbon dioxide","Oxygen","Nitrogen","Hydrogen"],0],
 
-            <h2>
-                🎮 Sunshine Quiz
-            </h2>
+["What is the currency of India?",["Indian Rupee","Dollar","Pound","Yen"],0]
 
-            <p>
-                Choose a topic and challenge yourself.
-            </p>
+]
 
-        </div>
+};
 
 
-        <!-- QUIZ TOPIC SELECTION -->
+/* ================= QUIZ ENGINE ================= */
 
-        <div
-            class="quiz-topic-selection"
-            id="quizTopicSelection"
-        >
+let currentQuiz=[];
+let currentIndex=0;
+let score=0;
 
-            <button
-                class="quiz-topic-button"
-                data-quiz-topic="rajputana"
-            >
+function startQuiz(topic){
 
-                🏰
-                <strong>
-                    Rajputana
-                </strong>
+currentQuiz=quizzes[topic];
+currentIndex=0;
+score=0;
 
-                <span>
-                    History &amp; legends
-                </span>
+document.getElementById("score").textContent=0;
+document.getElementById("resultBox").style.display="none";
+document.getElementById("quizBox").style.display="block";
 
-            </button>
+document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
 
+showQuestion();
+}
 
-            <button
-                class="quiz-topic-button"
-                data-quiz-topic="investing"
-            >
+function showQuestion(){
 
-                📈
-                <strong>
-                    Investing
-                </strong>
+const item=currentQuiz[currentIndex];
 
-                <span>
-                    Finance basics
-                </span>
+document.getElementById("qNumber").textContent=
+`Question ${currentIndex+1} / ${currentQuiz.length}`;
 
-            </button>
+document.getElementById("question").textContent=item[0];
 
+const answers=document.getElementById("answers");
+answers.innerHTML="";
 
-            <button
-                class="quiz-topic-button"
-                data-quiz-topic="india"
-            >
+document.getElementById("feedback").textContent="";
+document.getElementById("next").style.display="none";
 
-                🇮🇳
-                <strong>
-                    India
-                </strong>
+item[1].forEach((answer,index)=>{
 
-                <span>
-                    General knowledge
-                </span>
+const button=document.createElement("button");
+button.className="answer";
+button.textContent=answer;
 
-            </button>
+button.onclick=()=>chooseAnswer(index,button);
 
-        </div>
+answers.appendChild(button);
 
+});
 
+}
 
-        <!-- QUIZ BOX -->
+function chooseAnswer(selected,button){
 
-        <div
-            class="quiz-container"
-            id="quizContainer"
-            style="display: none;"
-        >
+const item=currentQuiz[currentIndex];
 
+const buttons=document.querySelectorAll("#answers .answer");
 
-            <!-- QUIZ HEADER -->
+buttons.forEach(b=>b.disabled=true);
 
-            <div class="quiz-header">
+if(selected===item[2]){
 
-                <div>
+button.classList.add("correct");
+score+=10;
 
-                    <p class="quiz-label">
-                        QUESTION
-                    </p>
+document.getElementById("score").textContent=score;
 
-                    <div
-                        id="questionNumber"
-                        class="question-number"
-                    >
-                        1 / 10
-                    </div>
+document.getElementById("feedback").textContent=
+"✓ Correct! +10 points";
 
-                </div>
+}else{
 
+button.classList.add("wrong");
+buttons[item[2]].classList.add("correct");
 
-                <div class="score-box">
+document.getElementById("feedback").textContent=
+"✗ Not quite. Correct answer: "+item[1][item[2]];
 
-                    <span>
-                        SCORE
-                    </span>
+}
 
-                    <strong id="score">
-                        0
-                    </strong>
+document.getElementById("next").style.display="block";
+}
 
-                </div>
+function nextQuestion(){
 
-            </div>
+currentIndex++;
 
+if(currentIndex>=currentQuiz.length){
+finishQuiz();
+}else{
+showQuestion();
+}
 
+}
 
-            <!-- QUESTION -->
+function finishQuiz(){
 
-            <div class="quiz-question">
+document.getElementById("quizBox").style.display="none";
+document.getElementById("resultBox").style.display="block";
 
-                <h3 id="questionText">
-                    Question goes here
-                </h3>
+document.getElementById("finalScore").textContent=
+score+" / 100";
 
-            </div>
+let text;
 
+if(score===100)
+text="Perfect score! 🏆 Incredible!";
+else if(score>=80)
+text="Excellent! 🌟";
+else if(score>=60)
+text="Great job! ☀️";
+else if(score>=40)
+text="Good attempt! Keep learning. 📚";
+else
+text="Every question is a chance to learn something new. ☀️";
 
+document.getElementById("resultText").textContent=text;
+}
 
-            <!-- ANSWERS -->
+function resetQuiz(){
 
-            <div
-                class="answer-grid"
-                id="answerGrid"
-            >
+document.getElementById("resultBox").style.display="none";
+document.getElementById("quizBox").style.display="none";
 
-            </div>
+document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
+}
 
-
-
-            <!-- FEEDBACK -->
-
-            <div
-                id="quizFeedback"
-                class="quiz-feedback"
-            >
-
-            </div>
-
-
-
-            <!-- NEXT BUTTON -->
-
-            <button
-                id="nextQuestionBtn"
-                class="next-question-button"
-                style="display: none;"
-            >
-                Next Question →
-            </button>
-
-
-        </div>
-
-
-
-        <!-- QUIZ RESULT -->
-
-        <div
-            class="quiz-result"
-            id="quizResult"
-            style="display: none;"
-        >
-
-            <div class="result-icon">
-                🏆
-            </div>
-
-            <p class="eyebrow">
-                QUIZ COMPLETE
-            </p>
-
-            <h2>
-                Well done!
-            </h2>
-
-            <p>
-                Your final score:
-            </p>
-
-            <div
-                class="final-score"
-                id="finalScore"
-            >
-                0 / 100
-            </div>
-
-            <p id="resultMessage">
-                Keep learning and keep exploring!
-            </p>
-
-            <button
-                id="playAgainBtn"
-                class="hero-button"
-            >
-                🔄 Play Again
-            </button>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= FEATURED WORLDS ================= -->
-
-    <section class="worlds-section">
-
-        <div class="section-heading">
-
-            <p class="eyebrow">
-                YOUR WORLDS
-            </p>
-
-            <h2>
-                Go deeper.
-            </h2>
-
-        </div>
-
-
-        <div class="world-grid">
-
-
-            <div class="world-card">
-
-                <span class="world-number">
-                    01
-                </span>
-
-                <h3>
-                    🏰 The Stories of Rajputana
-                </h3>
-
-                <p>
-                    From Mewar and Marwar to legendary
-                    warriors, magnificent forts and
-                    stories passed through generations.
-                </p>
-
-                <button
-                    class="world-button"
-                    data-question="Tell me a fascinating Rajputana story. Make it engaging and clearly tell me which parts are historically established and which are legend or oral tradition."
-                >
-                    Tell me a story →
-                </button>
-
-            </div>
-
-
-
-            <div class="world-card">
-
-                <span class="world-number">
-                    02
-                </span>
-
-                <h3>
-                    📈 Learn Investing
-                </h3>
-
-                <p>
-                    Build financial knowledge from zero
-                    through simple explanations and
-                    practical examples.
-                </p>
-
-                <button
-                    class="world-button"
-                    data-question="Start teaching me investing from zero. Give me my first lesson and then quiz me with a few questions."
-                >
-                    Start learning →
-                </button>
-
-            </div>
-
-
-
-            <div class="world-card">
-
-                <span class="world-number">
-                    03
-                </span>
-
-                <h3>
-                    🏍️ India on Two Wheels
-                </h3>
-
-                <p>
-                    Learn motorcycles and explore the
-                    incredible landscapes and roads of India.
-                </p>
-
-                <button
-                    class="world-button"
-                    data-question="Teach me about an interesting motorcycle journey through India and explain what makes the route special."
-                >
-                    Plan a journey →
-                </button>
-
-            </div>
-
-
-
-            <div class="world-card">
-
-                <span class="world-number">
-                    04
-                </span>
-
-                <h3>
-                    📚 The Reading Room
-                </h3>
-
-                <p>
-                    Find novels, discover authors and
-                    explore characters, stories and ideas.
-                </p>
-
-                <button
-                    class="world-button"
-                    data-question="Recommend five excellent novels from different genres and briefly explain why each one is worth reading."
-                >
-                    Find a book →
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= AI CHAT ================= -->
-
-    <section
-        class="chat-section"
-        id="ask"
-    >
-
-        <div class="chat-container">
-
-
-            <div class="chat-header">
-
-                <div class="chat-sun">
-                    ☀️
-                </div>
-
-                <div>
-
-                    <p class="eyebrow">
-                        SUNSHINE AI
-                    </p>
-
-                    <h2>
-                        Ask anything.
-                    </h2>
-
-                    <p>
-                        Your curiosity is the only limit.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-
-            <div
-                class="chat-messages"
-                id="chatMessages"
-            >
-
-                <div class="message bot-message">
-
-                    <div class="message-content">
-
-                        <p>
-                            Hello! I'm Sunshine ☀️
-                        </p>
-
-                        <p>
-                            What would you like to explore today?
-                        </p>
-
-                        <div class="suggestion-list">
-
-                            <button
-                                class="suggestion"
-                                data-question="Tell me a fascinating Rajputana tale."
-                            >
-                                🏰 Rajputana tale
-                            </button>
-
-
-                            <button
-                                class="suggestion"
-                                data-question="Teach me investing from absolute beginner level."
-                            >
-                                📈 Teach me investing
-                            </button>
-
-
-                            <button
-                                class="suggestion"
-                                data-question="Recommend a great novel for me."
-                            >
-                                📚 Recommend a novel
-                            </button>
-
-
-                            <button
-                                class="suggestion"
-                                data-question="Quiz me on Indian history."
-                            >
-                                🎮 Quiz me
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="chat-input-area">
-
-                <input
-                    type="text"
-                    id="userInput"
-                    placeholder="Ask Sunshine anything..."
-                    autocomplete="off"
-                >
-
-                <button
-                    id="sendBtn"
-                >
-                    Send ☀️
-                </button>
-
-            </div>
-
-
-
-            <div class="chat-footer">
-
-                <p>
-                    ✨ Powered by Sunshine AI
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= VISION ================= -->
-
-    <section class="vision-section">
-
-        <div class="vision-content">
-
-            <p class="eyebrow">
-                THE VISION
-            </p>
-
-            <h2>
-                One place.
-                <br>
-                Infinite curiosity.
-            </h2>
-
-            <p>
-                Sunshine is being built as a friendly knowledge
-                universe where history, finance, books, motorcycles,
-                travel, creativity and games come together with AI.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer>
-
-        <div class="footer-logo">
-            ☀️ SUNSHINE
-        </div>
-
-        <p>
-            Made with ❤️ for a special friend
-        </p>
-
-        <p class="footer-small">
-            Learn something. Explore something. Stay curious.
-        </p>
-
-    </footer>
-
-
-
-    <script src="script.js"></script>
+</script>
 
 </body>
-
 </html>
