@@ -1,112 +1,394 @@
-// DOM elements
-const chatMessages = document.getElementById('chatMessages');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
+const userInput = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const chatMessages = document.getElementById("chatMessages");
 
-// Add event listeners
-sendBtn.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        sendMessage();
+
+/* ================= ADD MESSAGE ================= */
+
+function addMessage(text, sender) {
+
+    const message = document.createElement("div");
+
+    message.className =
+        sender === "user"
+            ? "message user-message"
+            : "message bot-message";
+
+
+    const content = document.createElement("div");
+
+    content.className = "message-content";
+
+
+    /*
+       Convert simple line breaks into HTML
+       so Sunshine's answers remain readable.
+    */
+
+    const formattedText = String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, "<br>");
+
+
+    content.innerHTML = formattedText;
+
+
+    message.appendChild(content);
+
+    chatMessages.appendChild(message);
+
+
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+}
+
+
+/* ================= TYPING MESSAGE ================= */
+
+function addTypingMessage() {
+
+    const message = document.createElement("div");
+
+    message.className =
+        "message bot-message";
+
+    message.id = "typingMessage";
+
+
+    const content = document.createElement("div");
+
+    content.className =
+        "message-content";
+
+    content.innerHTML =
+        "Sunshine is thinking... ☀️";
+
+
+    message.appendChild(content);
+
+    chatMessages.appendChild(message);
+
+
+    chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+}
+
+
+/* ================= REMOVE TYPING ================= */
+
+function removeTypingMessage() {
+
+    const typing =
+        document.getElementById("typingMessage");
+
+    if (typing) {
+        typing.remove();
     }
-});
+}
 
-// Send message function
-async function sendMessage() {
-    const message = userInput.value.trim();
-    if (!message) return;
 
-    // Disable input and button while processing
-    userInput.disabled = true;
+/* ================= ASK SUNSHINE ================= */
+
+async function askSunshine(message) {
+
+    const question =
+        String(message).trim();
+
+
+    if (!question) {
+        return;
+    }
+
+
+    /*
+       Show user's message
+    */
+
+    addMessage(
+        question,
+        "user"
+    );
+
+
+    /*
+       Clear input
+    */
+
+    userInput.value = "";
+
+
+    /*
+       Show thinking indicator
+    */
+
+    addTypingMessage();
+
+
+    /*
+       Disable button temporarily
+    */
+
     sendBtn.disabled = true;
-    userInput.value = '';
 
-    // Add user message to chat
-    addMessage(message, 'user');
+    sendBtn.textContent =
+        "Thinking...";
 
-    // Show loading indicator
-    const loadingId = addLoadingMessage();
 
     try {
-        // Send to our Vercel API endpoint
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: message }),
-        });
+
+        const response =
+            await fetch("/api/chat", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: question
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        removeTypingMessage();
+
 
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+
+            throw new Error(
+                data.error ||
+                "Sunshine could not answer."
+            );
+
         }
 
-        const data = await response.json();
 
-        // Remove loading message
-        removeLoadingMessage(loadingId);
+        /*
+           Display Sunshine's answer
+        */
 
-        // Add bot response
-        addMessage(data.reply, 'bot');
+        addMessage(
+            data.reply ||
+            "I'm sorry, I couldn't find an answer.",
+            "bot"
+        );
+
 
     } catch (error) {
-        console.error('Error:', error);
-        removeLoadingMessage(loadingId);
-        addMessage('😅 Oops! I had a little trouble connecting. Please try again in a moment.', 'bot');
-    } finally {
-        // Re-enable input and button
-        userInput.disabled = false;
-        sendBtn.disabled = false;
-        userInput.focus();
+
+        removeTypingMessage();
+
+
+        addMessage(
+            "Oops! ☀️ Something went wrong while connecting to Sunshine. Please try again.",
+            "bot"
+        );
+
+
+        console.error(
+            "Sunshine error:",
+            error
+        );
+
     }
-}
 
-// Add message to chat
-function addMessage(text, sender) {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `message ${sender}-message`;
 
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'message-content';
+    /*
+       Enable button again
+    */
 
-    // Convert newlines to <br> and handle bullet lists
-    const formattedText = text.replace(/\n/g, '<br>');
-    contentDiv.innerHTML = `<p>${formattedText}</p>`;
+    sendBtn.disabled = false;
 
-    messageDiv.appendChild(contentDiv);
-    chatMessages.appendChild(messageDiv);
+    sendBtn.textContent =
+        "Send ☀️";
 
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
 
-// Add loading message
-function addLoadingMessage() {
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'message bot-message loading';
-    messageDiv.id = 'loading-' + Date.now();
-
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'message-content';
-    contentDiv.innerHTML = '<p>⏳ Sunshine is thinking...</p>';
-
-    messageDiv.appendChild(contentDiv);
-    chatMessages.appendChild(messageDiv);
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    return messageDiv.id;
-}
-
-// Remove loading message
-function removeLoadingMessage(id) {
-    const loadingElement = document.getElementById(id);
-    if (loadingElement) {
-        loadingElement.remove();
-    }
-}
-
-// Focus input on page load
-window.addEventListener('load', () => {
     userInput.focus();
-});
+}
+
+
+/* ================= SEND BUTTON ================= */
+
+sendBtn.addEventListener(
+    "click",
+    function () {
+
+        askSunshine(
+            userInput.value
+        );
+
+    }
+);
+
+
+/* ================= ENTER KEY ================= */
+
+userInput.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            event.preventDefault();
+
+            askSunshine(
+                userInput.value
+            );
+
+        }
+
+    }
+);
+
+
+/* ================= TOPIC CARDS ================= */
+
+const topicCards =
+    document.querySelectorAll(
+        ".topic-card"
+    );
+
+
+topicCards.forEach(
+    function (card) {
+
+        card.addEventListener(
+            "click",
+            function () {
+
+                const question =
+                    card.dataset.question;
+
+
+                if (!question) {
+                    return;
+                }
+
+
+                /*
+                   Move user to chat
+                */
+
+                document
+                    .getElementById("ask")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+
+                /*
+                   Give the browser a moment
+                   to scroll before asking.
+                */
+
+                setTimeout(
+                    function () {
+
+                        askSunshine(
+                            question
+                        );
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ================= WORLD BUTTONS ================= */
+
+const worldButtons =
+    document.querySelectorAll(
+        ".world-button"
+    );
+
+
+worldButtons.forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const question =
+                    button.dataset.question;
+
+
+                if (!question) {
+                    return;
+                }
+
+
+                document
+                    .getElementById("ask")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+
+                setTimeout(
+                    function () {
+
+                        askSunshine(
+                            question
+                        );
+
+                    },
+                    500
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* ================= CHAT SUGGESTIONS ================= */
+
+const suggestions =
+    document.querySelectorAll(
+        ".suggestion"
+    );
+
+
+suggestions.forEach(
+    function (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const question =
+                    button.dataset.question;
+
+
+                if (!question) {
+                    return;
+                }
+
+
+                askSunshine(
+                    question
+                );
+
+            }
+        );
+
+    }
+);
